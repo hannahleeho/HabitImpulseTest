@@ -371,6 +371,22 @@ if (blockedDevice) {
     }
   }
 
+  // ---------- Save to DataPipe (online link only)
+  if (CONFIG.saveOnline && window.location.protocol !== "file:") {
+    const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+    timeline.push({
+      type: jsPsychPipe,
+      action: "save",
+      experiment_id: CONFIG.dataPipeExperimentId,
+      filename: `${CONFIG.quickMode ? "demo_" : ""}study3_${participantId}_${stamp}.csv`,
+      data_string: () => jsPsych.data.get().csv(),
+      wait_message: "<p>Saving your answers. Please don't close this page.</p>",
+      on_finish: (data) => {
+        if (!data.success) console.warn("DataPipe save failed", data.result);
+      },
+    });
+  }
+
   timeline.push(
     page(
       () => `<h2>All done</h2>${scoreLine()}<p>Thank you for taking part.</p>${

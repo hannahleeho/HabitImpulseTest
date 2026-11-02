@@ -93,6 +93,13 @@ const CONFIG = {
   // downloads a file, so supervisors and participants don't get one.
   // Online data saving is handled by DataPipe -> OSF (added later).
   saveLocalCSV: window.location.protocol === "file:",
+
+  // Send the data to DataPipe (which puts it in your Google Drive folder)
+  // at the end of the task. Only happens on the online link, never when
+  // opened from your own computer. Nothing saves unless "Accept new data"
+  // is switched on for the experiment at pipe.jspsych.org.
+  saveOnline: true,
+  dataPipeExperimentId: "61jsTFu8kne2",
 };
 
 // Quick mode = short demo (about 3 minutes), e.g. for supervisors.
